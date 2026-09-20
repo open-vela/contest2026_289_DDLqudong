@@ -28,3 +28,6 @@ artifacts/submission/*
 
 # Do not submit generated private signing key.
 sign/release/*.pem
+
+__pycache__/
+*.pyc

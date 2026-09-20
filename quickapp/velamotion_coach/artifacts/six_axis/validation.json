@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-20",
+  "appVersion": "1.1.0",
+  "sixAxisTests": {
+    "passed": 14,
+    "total": 14
+  },
+  "bridgeTests": {
+    "passed": 6,
+    "total": 6
+  },
+  "coreTests": {
+    "passed": 53,
+    "total": 53
+  },
+  "motionTests": "passed",
+  "patchApplicability": "passed",
+  "patchIdempotence": "passed",
+  "firmwareBuild": "not_run",
+  "physicalBoard": "not_connected",
+  "watchJsNativeFrame": {
+    "passed": true,
+    "source": "emulator_uorb",
+    "accZ": 9.75,
+    "gyroY": -0.75,
+    "gyroZ": 1.25
+  },
+  "continuousWatchTraining": {
+    "passed": false,
+    "reason": "native_sample_gaps",
+    "observedGapMs": [
+      217.7,
+      376.6,
+      512.6
+    ]
+  },
+  "invalidSessionAborted": true,
+  "signedRelease": {
+    "path": "dist/com.velamotion.coach.release.1.1.0.rpk",
+    "sha256": "cb7a044fd06e57d0776bc7b6275ad91d2dfb063d562e026ab8445f36bc7211b4"
+  },
+  "developmentLogsIncluded": false,
+  "installedBundle": {
+    "sha256": "1fc96b91e1fabdaab6dc889e716b0ae82f280794fba1ae93b5166c8c3012c30d",
+    "matchesSignedRelease": true
+  },
+  "finalUi": {
+    "sceneSelector": "artifacts/six_axis/source_selector.png",
+    "allSevenButtonsVisible": true
+  }
+}

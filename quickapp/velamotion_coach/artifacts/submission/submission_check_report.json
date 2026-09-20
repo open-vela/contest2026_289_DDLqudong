@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T04:18:46.486Z",
+  "generatedAt": "2026-09-20T12:39:54.973Z",
   "ok": true,
   "missing": [],
   "aiCodingLogs": {
@@ -8,6 +8,60 @@
     "officialRequirementMet": false
   },
   "competitionRequirementsComplete": false,
+  "packageIntegrityOnly": true,
+  "legacyVisualEvidenceVersion": "1.0.0",
+  "nativeSixAxisAcceptanceComplete": false,
+  "sixAxisEvidence": {
+    "date": "2026-09-20",
+    "appVersion": "1.1.0",
+    "sixAxisTests": {
+      "passed": 14,
+      "total": 14
+    },
+    "bridgeTests": {
+      "passed": 6,
+      "total": 6
+    },
+    "coreTests": {
+      "passed": 53,
+      "total": 53
+    },
+    "motionTests": "passed",
+    "patchApplicability": "passed",
+    "patchIdempotence": "passed",
+    "firmwareBuild": "not_run",
+    "physicalBoard": "not_connected",
+    "watchJsNativeFrame": {
+      "passed": true,
+      "source": "emulator_uorb",
+      "accZ": 9.75,
+      "gyroY": -0.75,
+      "gyroZ": 1.25
+    },
+    "continuousWatchTraining": {
+      "passed": false,
+      "reason": "native_sample_gaps",
+      "observedGapMs": [
+        217.7,
+        376.6,
+        512.6
+      ]
+    },
+    "invalidSessionAborted": true,
+    "signedRelease": {
+      "path": "dist/com.velamotion.coach.release.1.1.0.rpk",
+      "sha256": "cb7a044fd06e57d0776bc7b6275ad91d2dfb063d562e026ab8445f36bc7211b4"
+    },
+    "developmentLogsIncluded": false,
+    "installedBundle": {
+      "sha256": "1fc96b91e1fabdaab6dc889e716b0ae82f280794fba1ae93b5166c8c3012c30d",
+      "matchesSignedRelease": true
+    },
+    "finalUi": {
+      "sceneSelector": "artifacts/six_axis/source_selector.png",
+      "allSevenButtonsVisible": true
+    }
+  },
   "packageScripts": {
     "ok": true,
     "targets": [
@@ -64,6 +118,12 @@
         "command": "node --no-warnings scripts/prepare_submission_package.js",
         "target": "scripts/prepare_submission_package.js",
         "exists": true
+      },
+      {
+        "name": "test:six-axis",
+        "command": "node --no-warnings scripts/test_six_axis.mjs",
+        "target": "scripts/test_six_axis.mjs",
+        "exists": true
       }
     ]
   },
@@ -73,8 +133,8 @@
     "autoPageDisabled": true
   },
   "releaseRpk": {
-    "path": "dist/com.velamotion.coach.release.1.0.0.rpk",
-    "sizeBytes": 52719,
+    "path": "dist/com.velamotion.coach.release.1.1.0.rpk",
+    "sizeBytes": 53954,
     "structureOk": true,
     "freshAgainstSource": true,
     "entryCount": 11
@@ -152,15 +212,15 @@
   "submissionZip": {
     "path": "artifacts/submission/velamotion_coach_submission.zip",
     "ok": true,
-    "sizeBytes": 771747,
-    "entryCount": 94,
+    "sizeBytes": 819220,
+    "entryCount": 109,
     "forbiddenEntries": [],
     "embeddedManifestHasZipPath": true,
-    "checkedFileCount": 66,
+    "checkedFileCount": 78,
     "contentMatchesCurrentInputs": true,
     "mismatchedFiles": [],
     "rootManifestReleaseHashMatches": true,
     "embeddedManifestReleaseHashMatches": true
   },
-  "note": "The current acceptance set is four core pages; preserved legacy 11-page artifacts are ignored. Dry-run Mock evidence, stale RPKs, mislabeled screenshots, stale ZIP manifests and private/heavy files fail this check."
+  "note": "Package integrity success is not native six-axis runtime acceptance. The screenshots/video are retained 1.0.0 overview evidence. The current acceptance set is four core pages; preserved legacy 11-page artifacts are ignored. Dry-run Mock evidence, stale RPKs, mislabeled screenshots, stale ZIP manifests and private/heavy files fail this check."
 }

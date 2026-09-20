@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T04:18:45.664Z",
+  "generatedAt": "2026-09-20T12:39:54.148Z",
   "packageName": "com.velamotion.coach",
   "aiCodingLogs": {
     "included": false,
@@ -10,9 +10,9 @@
   "stagingDir": "artifacts/submission/velamotion_coach_submission",
   "zipPath": "artifacts/submission/velamotion_coach_submission.zip",
   "releaseRpk": {
-    "path": "dist/com.velamotion.coach.release.1.0.0.rpk",
-    "sizeBytes": 52719,
-    "sha256": "9c4589c306e239105da964e3d475fdea8ec531ee70dae37c6a8605602d266129"
+    "path": "dist/com.velamotion.coach.release.1.1.0.rpk",
+    "sizeBytes": 53954,
+    "sha256": "cb7a044fd06e57d0776bc7b6275ad91d2dfb063d562e026ab8445f36bc7211b4"
   },
   "demoVideo": {
     "path": "artifacts/final_demo/auto_carousel/velamotion_core_demo.mp4",
@@ -26,7 +26,7 @@
     "core_03_timeline.png",
     "core_04_sync_review.png"
   ],
-  "copiedCount": 68,
+  "copiedCount": 81,
   "copied": [
     "README.md",
     "LICENSE",
@@ -47,10 +47,12 @@
     "src/common/device/operation_guard.js",
     "src/common/device/vibration_provider.js",
     "src/common/logo.png",
+    "src/common/sensor/emulator_uorb_transport.js",
     "src/common/sensor/health_provider.js",
     "src/common/sensor/mock_scenarios.js",
     "src/common/sensor/mock_sensor_provider.js",
     "src/common/sensor/real_sensor_provider.js",
+    "src/common/sensor/six_axis_provider.js",
     "src/common/storage/session_store.js",
     "src/common/sync/interconnect_sync.js",
     "src/common/sync/processing_state.js",
@@ -66,6 +68,7 @@
     "docs/model_migration.md",
     "docs/official_mock_acceptance.md",
     "docs/privacy_statement.md",
+    "docs/six_axis_integration.md",
     "docs/submission_package.md",
     "docs/submission_validation_2026-09-20.md",
     "docs/sync_export.md",
@@ -76,6 +79,16 @@
     "docs/作品介绍.docx",
     "docs/作品介绍.pdf",
     "skills/openvela-watch-acceptance/SKILL.md",
+    "native/README.md",
+    "native/apply_sensor_patch.py",
+    "native/sensor-six-axis.patch",
+    "native/upstream.json",
+    "scripts/emulator_uorb_bridge.py",
+    "scripts/test_six_axis.mjs",
+    "scripts/test_emulator_uorb_bridge.py",
+    "artifacts/six_axis/validation.json",
+    "artifacts/six_axis/source_selector.png",
+    "scripts/verify_six_axis_emulator.js",
     "sign/README.md",
     "scripts/export_codex_contest_log.py",
     "scripts/create_submission_documents.py",
@@ -86,7 +99,7 @@
     "scripts/model_migration_inventory.js",
     "scripts/check_submission_ready.js",
     "scripts/prepare_submission_package.js",
-    "dist/com.velamotion.coach.release.1.0.0.rpk",
+    "dist/com.velamotion.coach.release.1.1.0.rpk",
     "artifacts/mock_verification/official_mock_report.json",
     "artifacts/model_migration/model_asset_report.json",
     "artifacts/final_demo/auto_carousel/core_01_home.png",
@@ -109,7 +122,7 @@
   ],
   "boundary": "No physical Xiaomi watch/band was available on this server; true-device validation is implemented as an in-app diagnostic workflow and documentation.",
   "zip": {
-    "sizeBytes": 771747,
-    "sha256": "93678966a1997ad9f351ec147aa0e582e545271c7d1f49c948ffb5cb2907fffb"
+    "sizeBytes": 819220,
+    "sha256": "0ac912cdc9e44ec5912bf2229c4c9f84bd675c124db525a42740c1e957492966"
   }
 }

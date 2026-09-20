@@ -127,6 +127,7 @@
             <input class="coach-scene-btn" style="background-color: {{ sceneJumpBg }}; color: {{ sceneJumpColor }};" type="button" value="跳绳" onclick="useJump" />
             <input class="coach-scene-btn" style="background-color: {{ sceneStaticBg }}; color: {{ sceneStaticColor }};" type="button" value="静坐" onclick="useStatic" />
             <input class="coach-scene-btn" style="background-color: {{ sceneRealBg }}; color: {{ sceneRealColor }};" type="button" value="真机" onclick="useRealDevice" />
+            <input class="coach-scene-btn" style="background-color: {{ sceneEmulatorBg }}; color: {{ sceneEmulatorColor }};" type="button" value="模拟器六轴" onclick="useEmulatorSensors" />
           </div>
           <div class="coach-ai-box">
             <text class="coach-ai-label">复盘</text>
@@ -288,7 +289,8 @@ import { HISTORY_CLEAR_ACTIONS, historyClearAction, syncActionPermission, wrappe
 import { classEmoji, classColor, CLASS_NAMES, CLASS_BG, SAMPLE_PERIOD_MS } from '../../common/algorithm/config.js';
 import { classifyHrZone, buildCoachTip, buildSummary, analyzeWorkoutRisk } from '../../common/algorithm/intensity_rules.js';
 import { MockSensorProvider } from '../../common/sensor/mock_sensor_provider.js';
-import { RealSensorProvider } from '../../common/sensor/real_sensor_provider.js';
+import { SixAxisSensorProvider as RealSensorProvider } from '../../common/sensor/six_axis_provider.js';
+import { EmulatorUorbTransport } from '../../common/sensor/emulator_uorb_transport.js';
 import { getScenario } from '../../common/sensor/mock_scenarios.js';
 import { HealthProvider, DATA_TYPES } from '../../common/sensor/health_provider.js';
 import { saveSession, loadSessions, listSessions, clearSessions } from '../../common/storage/session_store.js';
@@ -303,6 +305,7 @@ import { requestAiSummary, buildLocalAiSummary } from '../../common/ai/summary_p
 
 let engine = null;
 let inferenceRunner = null;
+let lastSixAxisLogMs = 0;
 let motionFx = null;
 let unsubscribePhoneMessages = null;
 let mockProvider = null;
@@ -756,6 +759,8 @@ export default {
     sceneJumpColor: "#42514B",
     sceneStaticBg: "#F0F5F2",
     sceneStaticColor: "#42514B",
+    sceneEmulatorBg: "#F0F5F2",
+    sceneEmulatorColor: "#42514B",
     sceneRealBg: "#F0F5F2",
     sceneRealColor: "#42514B",
   },
@@ -939,6 +944,7 @@ export default {
       ['Jump', 'jump_rope'],
       ['Static', 'static'],
       ['Real', 'real_device'],
+      ['Emulator', 'official_six_axis'],
     ];
     pairs.forEach((pair) => {
       this[`scene${pair[0]}Bg`] = pair[1] === sceneId ? selectedBg : idleBg;
@@ -1173,7 +1179,7 @@ export default {
       healthProvider.start();
       this.serviceHealthText = '订阅中';
     } catch (e) {
-      this.serviceHealthText = 'Mock 兜底';
+      this.serviceHealthText = dataProviderMode === 'real' ? '无健康数据' : '演示健康数据';
       console.log(`service.health unavailable: ${e.message}`);
     }
   },
@@ -1190,8 +1196,8 @@ export default {
     }
   },
 
-  applyHealthError(err) {
-    this.serviceHealthText = err && err.unsupported ? 'Mock 兜底' : 'Mock 兜底';
+  applyHealthError() {
+    this.serviceHealthText = dataProviderMode === 'real' ? '无健康数据' : '演示健康数据';
   },
 
   applyScene(sceneId, force) {
@@ -1199,6 +1205,7 @@ export default {
       this.sceneDesc = '请先停止训练';
       return;
     }
+    if (realProvider) realProvider.stop();
     dataProviderMode = 'mock';
     selectedSceneId = sceneId;
     this.dataSourceText = '演';
@@ -1220,6 +1227,8 @@ export default {
       this.sceneDesc = '请先停止训练';
       return;
     }
+    if (realProvider) realProvider.stop();
+    realProvider = new RealSensorProvider();
     dataProviderMode = 'real';
     selectedSceneId = 'real_device';
     this.currentSceneName = '真机采集';
@@ -1228,6 +1237,42 @@ export default {
     this.setSceneSelection('real_device');
     this.dataSourceText = '真';
     if (mockProvider) mockProvider.stop();
+  },
+
+  useEmulatorSensors() {
+    if (this.isRunning) { this.sceneDesc = '请先停止训练'; return; }
+    if (mockProvider) mockProvider.stop();
+    if (realProvider) realProvider.stop();
+    realProvider = new RealSensorProvider({ transport: new EmulatorUorbTransport() });
+    dataProviderMode = 'real';
+    selectedSceneId = 'official_six_axis';
+    this.currentSceneName = '模拟器六轴';
+    this.sceneDesc = '读取模拟器系统传感器·需启动本机验证桥';
+    this.scenePreviewRows = scenePreviewRows('real_device');
+    this.setSceneSelection('official_six_axis');
+    this.dataSourceText = '仿真';
+  },
+
+  handleRealSensorStatus(status) {
+    if (pageDisposing || dataProviderMode !== 'real' || !this.isRunning) return;
+    if (status.error) {
+      const error = status.error;
+      console.error('VMC_SIX_AXIS_ABORT reason=' + error);
+      this.resetSession();
+      this.storageStatusText = '未保存';
+      patchLive(this, { runStatusText: '六轴采集中断', startButtonText: '重试',
+        alertStatusText: '不会保存', summaryTip: '传感器数据不完整，请检查连接后重试。',
+        riskTitle: '采集已停止', riskMessage: '本次训练未保存', runMarkerColor: '#F97316' });
+      return;
+    }
+    if (status.ready) {
+      this.startHealthProvider();
+      this.dataSourceText = status.source === 'emulator_uorb' ? '仿真' : '真';
+      patchLive(this, { runStatusText: '六轴识别中', summaryTip: '加速度与陀螺仪已连接，正在建立动作基线。' });
+      console.log('VMC_SIX_AXIS_READY source=' + status.source);
+    } else {
+      patchLive(this, { runStatusText: '连接六轴传感器', summaryTip: '等待加速度与陀螺仪数据。' });
+    }
   },
 
   toggleRunning() {
@@ -1269,7 +1314,7 @@ export default {
             status: capabilities && capabilities.accelerometer ? '通过' : '失败',
             detail: capabilities && capabilities.accelerometer ? 'ACC 可用' : 'ACC 不可用',
           },
-          { name: '真实 GYRO', status: '失败', detail: '公开 JS API 未提供 GYRO' },
+          { name: '真实 GYRO', status: '失败', detail: '需安装原生六轴扩展固件' },
         ]);
         this.diagnosticSummaryText = realPermission.message;
         this.diagnosticPassWidth = capabilities && capabilities.accelerometer ? 124 : 18;
@@ -1329,7 +1374,7 @@ export default {
     if (motionFx) motionFx.clearTransientEffects(false);
     this.applyMotionFrame(motionNeutralFrame(false));
     this.setProcessingState(PROCESSING_STATES.WATCH_SCREENING);
-    this.startHealthProvider();
+    if (dataProviderMode !== 'real') this.startHealthProvider();
     this.isRunning = true;
     this.updateMotionChannels();
     this.triggerMotionEffect('start');
@@ -1348,8 +1393,8 @@ export default {
     if (dataProviderMode === 'real') {
       if (!realProvider) realProvider = new RealSensorProvider();
       if (mockProvider) mockProvider.stop();
-      this.dataSourceText = '真';
-      realProvider.start((batch) => this.handleBatch(batch), { interval: 'game' });
+      this.dataSourceText = selectedSceneId === 'official_six_axis' ? '仿真' : '真';
+      realProvider.start((batch) => this.handleBatch(batch), { onStatus: (status) => this.handleRealSensorStatus(status) });
       console.log('VMC_REAL_SENSOR_START');
     } else {
       if (!mockProvider) mockProvider = new MockSensorProvider();
@@ -1420,6 +1465,8 @@ export default {
     saveSession({
       sceneId: selectedSceneId,
       sceneName: this.currentSceneName,
+      sensorSource: lastSample && lastSample.source ? lastSample.source : 'internal_mock',
+      stepAvailable: Boolean(lastSample && lastSample.stepAvailable !== false),
       summary,
       segments: lastResult ? lastResult.segments : [],
       risks: riskEvents.slice(-8),
@@ -1855,6 +1902,18 @@ export default {
 
   handleBatch(batch) {
     if (!this.isRunning || !batch || batch.length === 0 || !engine) return;
+    if (dataProviderMode === 'real' && batch.some((sample) => !sample || !sample.gyroAvailable ||
+      !sample.fullActivityRecognition || !['accX', 'accY', 'accZ', 'gyroX', 'gyroY', 'gyroZ', 'timeStamp'].every((key) => Number.isFinite(sample[key])))) {
+      realProvider.fail('invalid_six_axis_batch');
+      return;
+    }
+    if (dataProviderMode === 'real' && (!lastSixAxisLogMs || Date.now() - lastSixAxisLogMs >= 1000)) {
+      lastSixAxisLogMs = Date.now();
+      const sample = batch[batch.length - 1];
+      console.log('VMC_SIX_AXIS_BATCH source=' + sample.source + ' count=' + batch.length +
+        ' t=' + sample.sensorTimestampMs + ' acc=' + [sample.accX,sample.accY,sample.accZ].join(',') +
+        ' gyro=' + [sample.gyroX,sample.gyroY,sample.gyroZ].join(','));
+    }
     const receivedAtMs = Date.now();
     const fallbackStart = receivedAtMs - Math.max(0, batch.length - 1) * SAMPLE_PERIOD_MS;
     const safeBatch = batch.map((sample, idx) => Object.assign({}, sample || {}, {
@@ -1939,7 +1998,7 @@ export default {
     const live = patchLive(this, Object.assign({
       elapsedText: formatSec(elapsed),
       hrText: lastSample.heartRate > 0 ? String(Math.round(lastSample.heartRate)) : "--",
-      stepText: String(Math.round(lastSample.stepCount || 0)),
+      stepText: lastSample.stepAvailable === false ? '--' : String(Math.round(lastSample.stepCount || 0)),
       accText: lastSample.accX.toFixed(1) + " / " + lastSample.accY.toFixed(1) + " / " + lastSample.accZ.toFixed(1),
       zoneText: zone.label,
       zoneColor: zone.color,
@@ -3757,7 +3816,7 @@ export default {
   justify-content: center;
 }
 .coach-scene-btn {
-  width: 112px;
+  width: 82px;
   height: 34px;
   margin: 3px;
   border-radius: 17px;
