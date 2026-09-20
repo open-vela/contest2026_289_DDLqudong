@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-08-04T10:55:18.734Z",
+  "sourceRoot": "Wearable-IMU-Activity-Segmentation-Pipeline",
+  "assetCount": 24,
+  "recommended3sModel": {
+    "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/combined_model_3s_seed42.pth",
+    "sizeBytes": 5664643,
+    "sha256": "5ef17adef4fcbd610473e0190c67f327ee26afbbca05b0518aefacb00eaca54e"
+  },
+  "normParams3s": {
+    "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/norm_params_3s.pkl",
+    "sizeBytes": 291,
+    "sha256": "b2c4a41e46777deb6cf506f9ce20ff1821c079166750f4660c962b34e8022004"
+  },
+  "quickAppBackend": "src/common/algorithm/model_backend.js",
+  "currentRuntime": "tiny_classifier fallback; native_quantized_model optional bridge via setNativeModelBackend() or globalThis.velamotionModel",
+  "migrationBoundary": "PyTorch .pth cannot be executed directly inside Quick App JS. Convert to ONNX/TFLite/MNN or expose a native adapter, then register classifyWindow via setNativeModelBackend() or globalThis.velamotionModel.",
+  "assets": [
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/combined_model_3s_seed42.pth",
+      "sizeBytes": 5664643,
+      "sha256": "5ef17adef4fcbd610473e0190c67f327ee26afbbca05b0518aefacb00eaca54e"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/combined_model_5s_seed123.pth",
+      "sizeBytes": 5665981,
+      "sha256": "9a4f9732e8b95da52c3b890b45ce51a54e5cfc77097b72d6515427c677901e18"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/combined_model_8s_seed123.pth",
+      "sizeBytes": 5664643,
+      "sha256": "e56e73db5ec9dd4c7ba0c6ddff251830f5d450c8cca53a1d5b9054b65fada190"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/combined_model_best.pth",
+      "sizeBytes": 5664643,
+      "sha256": "5ef17adef4fcbd610473e0190c67f327ee26afbbca05b0518aefacb00eaca54e"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/cache_3s_full/norm_params.pkl",
+      "sizeBytes": 747,
+      "sha256": "f68311daf58cdc2d7c8118420fe491d5c53409f1d3b360c964a1446017cb59bd"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/cache_3s_max4/norm_params.pkl",
+      "sizeBytes": 747,
+      "sha256": "478764033438c4afb412b43aeae5b844ffda82d2f7b96781a559a185f6481f53"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/cache_5s_full/norm_params.pkl",
+      "sizeBytes": 747,
+      "sha256": "ee37104b0e91f084cc2021f8eea286f4878f32128f71e4825de7e427aac1ce89"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/cache_8s_full/norm_params.pkl",
+      "sizeBytes": 747,
+      "sha256": "2c100fe5b2c77e706808f429a8d2af93d2f5b84bc10057cb3422cad7efb28229"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/multimodal_raw_3s_seed42.pth",
+      "sizeBytes": 6511700,
+      "sha256": "f9433ef333f7c97745cba2e295a55765e7c918490f860123d794d7cec487aeac"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/multimodal_raw_3s_seed42_max4.pth",
+      "sizeBytes": 6511720,
+      "sha256": "fc57af73fad42ca570211eb912b3d963f61dcf45829bdb159a2f88ad5f9c7fbd"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/multimodal_raw_5s_seed123.pth",
+      "sizeBytes": 6511700,
+      "sha256": "e1fbf17bbaf3d4f058a5807c0eacff0cfcad5b5c0199c65410904d64ad26a267"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_raw/multimodal_raw_8s_seed123.pth",
+      "sizeBytes": 6511700,
+      "sha256": "adb706addbd91869372057b61000430fcc63c94191b9c128ad25d6a6285b0a4a"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/cache_3s_full/norm_params.pkl",
+      "sizeBytes": 910,
+      "sha256": "efe20065cae9e02dad00bb82dfea27363137cdf6a63aaf7af32cb297e127ffbf"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/cache_3s_max5/norm_params.pkl",
+      "sizeBytes": 910,
+      "sha256": "a5f2044bed24991e76926d5aabecf549a31b11099001c32367486aff07b42281"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/cache_5s_full/norm_params.pkl",
+      "sizeBytes": 910,
+      "sha256": "adaf016e392e786b6e03f86c2d2171099fb8cb7d282a803e316d0f64c77e04c8"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/cache_8s_full/norm_params.pkl",
+      "sizeBytes": 910,
+      "sha256": "37fc48bdba5771c80e2c5ba6d88fc5edb8a3567c577374993b74d1d3690925dc"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/multimodal_v2_3s_seed42.pth",
+      "sizeBytes": 6007059,
+      "sha256": "861e6d9c7087a3b156751c87d6a583ddf2f176b7a27bcee5bc156be8c0b8bd7b"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/multimodal_v2_3s_seed42_max5.pth",
+      "sizeBytes": 6005715,
+      "sha256": "93a678c07023833efa4e6d83cf53f24dfa3b8ca29792eeeff7fb1dcd7cd830e9"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/multimodal_v2_5s_seed123.pth",
+      "sizeBytes": 6007059,
+      "sha256": "e3e2309bd6bac0ce359b1081aa7ef3d02c54dd5acb9cc36a479b782314fc7bbb"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/multimodal_v2/multimodal_v2_8s_seed123.pth",
+      "sizeBytes": 6007059,
+      "sha256": "2000a95bf4f20261d633fe233be2268a4ef2bfceac4a2c20a3fe9776e9b5db66"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/norm_params.pkl",
+      "sizeBytes": 291,
+      "sha256": "b2c4a41e46777deb6cf506f9ce20ff1821c079166750f4660c962b34e8022004"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/norm_params_3s.pkl",
+      "sizeBytes": 291,
+      "sha256": "b2c4a41e46777deb6cf506f9ce20ff1821c079166750f4660c962b34e8022004"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/norm_params_5s.pkl",
+      "sizeBytes": 291,
+      "sha256": "6d20e78c346239d1232c7d4760dd6e716c9af527c9117fc065535230c826951a"
+    },
+    {
+      "file": "Wearable-IMU-Activity-Segmentation-Pipeline/saved_models/norm_params_8s.pkl",
+      "sizeBytes": 242,
+      "sha256": "91fe6b36977897ae61f693f63441746f562c3edd9851cdec9cc48436167b62e1"
+    }
+  ]
+}

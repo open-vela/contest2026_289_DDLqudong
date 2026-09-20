@@ -1,0 +1,6 @@
+**/node_modules/
+**/build/
+**/.temp_*/
+**/sign/release/*.pem
+**/com.velamotion.coach/
+.DS_Store

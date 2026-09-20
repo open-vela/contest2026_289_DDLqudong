@@ -1,0 +1,44 @@
+
+> velamotion-coach@1.0.0 release
+> aiot release
+
+🔷 [09-20 11:58:11] [toolkit]: start build:  {
+  "projectPath": "/home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach",
+  "options": {
+    "sourceRoot": "./src",
+    "signRoot": "./sign",
+    "releasePath": "./dist",
+    "outputPath": "./build",
+    "enableJsc": false,
+    "enableProtobuf": false,
+    "enableE2e": false,
+    "enableStats": false,
+    "optimizeCssAttr": false,
+    "completeFeature": false,
+    "dropConsole": false,
+    "mode": "production"
+  },
+  "watch": false,
+  "node": "v22.23.1",
+  "platform": "linux",
+  "arch": "x64",
+  "toolkit": "2.0.5"
+}
+🔷 [09-20 11:58:15] [toolkit]: afterCompile: undefined
+🔷 [09-20 11:58:15] [toolkit]: afterCompile: Create a soft link to the node_modules folder
+🔷 [09-20 11:58:15] [toolkit]: afterCompile: Compile javascript project
+🔷 [09-20 11:58:16] [toolkit]: webpack complete
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Copy resource files
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Compress resource files
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Generate jsc bytecode
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Generate protobuf json
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: compile lite card
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Package the project into an RPK file
+🔷 [09-20 11:58:16] [toolkit]: privatekeyPath is  /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/.temp_openvela_velamotion_coach/sign/release/private.pem 
+certificatePath is  /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/.temp_openvela_velamotion_coach/sign/release/certificate.pem
+✅ [09-20 11:58:16] [toolkit]: Project build and generate files：/home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/.temp_openvela_velamotion_coach/dist/com.velamotion.coach.release.1.0.0.rpk
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Generate diff json
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Migrate temporary project
+🔷 [09-20 11:58:16] [toolkit]: afterCompile: Check resource
+✅ [09-20 11:58:16] [toolkit]: build success: 5500ms
+🟠 [09-20 11:58:16] [toolkit]: please use AIoT-IDE: https://iot.mi.com/vela/quickapp/zh/guide/start/use-ide.html

@@ -1,148 +1,84 @@
-# contest2026_289_DDLqudong
+# VelaMotion Coach / 腕动教练
 
-👋 欢迎参加 **2026 首届 openvela AI 硬件开发者大赛**！
+**2026 首届 openvela AI 硬件开发者大赛 · 手表应用创新方向**
 
-这是组委会为你的队伍创建的**专属参赛仓库**（本仓为样例/模板，队伍编号 `289`；你看到的将是你自己的 `contest2026_<编号>_<队伍名>`）。比赛期间，你的全部参赛代码、打包产物与 AI Coding 日志都提交到这里。
+队伍：**DDLqudong（289）** · GitHub：rudykon · 版本：1.0.0
 
-> 本仓既是「代码仓」，又内置了一键拉取整套 openvela 工程的 `repo` 清单（manifest）。你只需跟它打交道，**自始至终只动一个文件夹**。
+腕动教练是一款 openvela 手表快应用：在腕上识别运动状态，自动生成训练片段，以短提醒和图表帮助用户复盘混合训练。以“小芽”运动伙伴引导开始和停止，核心训练闭环可在无手机、无云端 AI 服务的模拟器环境运行。
 
----
+## 评审入口
 
-## 一、先读这些官方文档
+- [作品介绍 PDF](quickapp/velamotion_coach/docs/作品介绍.pdf) / [Word](quickapp/velamotion_coach/docs/作品介绍.docx)
+- [演示 MP4](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/velamotion_core_demo.mp4)：四张本轮模拟器实测截图串联，每页 10 秒，非连续录屏。
+- [生产 Release RPK](quickapp/velamotion_coach/dist/com.velamotion.coach.release.1.0.0.rpk)
+- [源码与详细运行指南](quickapp/velamotion_coach/README.md)
+- [完整交付 ZIP](quickapp/velamotion_coach/artifacts/submission/velamotion_coach_submission.zip)
+- [本轮验收](quickapp/velamotion_coach/docs/submission_validation_2026-09-20.md) / [提交包检查](quickapp/velamotion_coach/artifacts/submission/submission_check_report.json) / [官方要求对应](quickapp/velamotion_coach/docs/contest_requirements.md)
 
-**通用（所有赛道必读）：**
+| 首页 | 腕上教练 | 时间线 | 同步复盘 |
+|---|---|---|---|
+| ![首页](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/core_01_home.png) | ![教练](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/core_02_coach.png) | ![时间线](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/core_03_timeline.png) | ![同步复盘](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/core_04_sync_review.png) |
 
-| 文档                                                                                                                                     | 用途                                           |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [《大赛总览》](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/contest_overview.md)                        | 赛道、流程、评分、资源，建议先通读             |
-| [《参赛代码提交指南》](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/code_submission_guide.md)           | 仓库获取、提交流程、时间与权限（**以此为准**） |
-| [《AI Coding 日志归集与提交手册》](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/ai_coding_log_guide.md) | 如何导出 AI 对话日志并提交到 `logs/`           |
+## 技术与交互
 
-**按你的赛道选读（三选一）：**
+`应用内 Mock 六轴数据 → 16 Hz / 3 秒滑窗 → IMU 特征 → tiny_classifier → TRL 后处理 → 风险提示、时间线与本地摘要`
 
-| 赛道                  | 教程导航                                                                                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 快应用 / 手表应用创新 | [快应用教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/quickapp/quickapp_guide_index.md)                         |
-| AI 硬件产品创新       | [AI 硬件赛道教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/ai_hardware/ai_hardware_guide_index.md)              |
-| 新硬件适配            | [新硬件适配赛道教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/hardware_porting/hardware_porting_guide_index.md) |
+- 六类标签：无活动、羽毛球、跳绳、飞鸟、跑步、乒乓球；演示覆盖混合训练、跑步、跳绳和疲劳场景。
+- TRL 居中平滑与 Viterbi 解码，固定尾部回溯；协作式推理、有界缓存与停止取消保护操作响应。
+- 接入 openvela 图形框架、`@system.storage`、`@system.vibrator`、`@service.health`；可选手机摘要同步与 `@system.velaclaw` 总结有明确降级。
+- 历史只保存摘要/片段/事件，不存原始连续波形。训练中每页均可停止，训练与诊断互斥。
 
----
+## 运行与复现
 
-## 二、第一步：拉取完整工程
-
-用组委会提供的命令一键拉取「openvela 全量源码 + 你的专属仓」：
-
-```bash
-repo init -u https://github.com/open-vela/contest2026_289_DDLqudong \
-  -b dev-ai-contest-2026 -m contest2026_289_DDLqudong.xml
-repo sync -c -j8
-```
-
-同步后，你的整个仓库位于工作区的 `contest2026_289_DDLqudong/`，openvela 全量源码在外层（`nuttx/`、`apps/`、`packages/`、`vendor/` 等）。
-
----
-
-## 三、第二步：在哪里写代码
-
-**只在自己的仓目录 `contest2026_289_DDLqudong/` 里开发。** 不同作品形态放在对应子目录，manifest 会通过 `<linkfile>` 把它们**软链**到 openvela 编译树该在的位置——你不用手动 copy：
-
-| 作品形态 | 你的代码放这里             | 系统自动映射到                                 |
-| -------- | -------------------------- | ---------------------------------------------- |
-| 应用     | `app/hello_app/`           | `packages/demos/contest2026_289_hello_app`     |
-| 快应用   | `quickapp/hello_quickapp/` | `packages/apps/contest2026_289_hello_quickapp` |
-| 板级适配 | `board/contest_board/`     | `vendor/openvela/boards/contest2026_289_board` |
-
-> 用不到的形态目录可以删掉；新增作品时按同样规则加子目录，并在 `contest2026_289_DDLqudong.xml` 里补一条 `<linkfile>` 映射即可。**生产仓库（packages/nuttx/vendor 等）零改动。**
-
-建议仓库目录约定（便于评委定位）：
-
-```text
-app/ | quickapp/ | board/   # 你的作品代码
-logs/                       # AI Coding 日志（主动导出后提交，格式见 logs/README.md）
-README.md                   # 作品说明（提交前请改成你自己的，见第六节）
-```
-
-> 仓内附带了一个 `.gitignore.example`，给出了**编译产物**等不需要进仓的文件示例。如需启用，`cp .gitignore.example .gitignore` 后按需增删即可。**注意 `logs/` 下最终导出的 AI Coding 日志必须提交，不要忽略。**
->
-> `logs/` 的目录结构与提交格式见 [logs/README.md](logs/README.md)。
-
----
-
-## 四、第三步：编译与运行
-
-编译/运行步骤随作品形态不同而不同，请参考你所在赛道的教程导航：
-
-- 快应用 / 手表应用：[快应用教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/quickapp/quickapp_guide_index.md)（含模拟器与开发板部署）。
-- AI 硬件产品创新：[AI 硬件赛道教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/ai_hardware/ai_hardware_guide_index.md)（环境搭建、编译烧录、Skill 开发）。
-- 新硬件适配：[新硬件适配赛道教程导航](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/hardware_porting/hardware_porting_guide_index.md)（BSP 移植、最小 NSH 基线）。
-
-子目录已通过 manifest 中的 `<linkfile>` 软链进 openvela 编译树，因此构建在 openvela 工作区**根目录**（即你这个仓的上一级）进行。openvela 使用 `build.sh` 作为统一入口，接收一个 **board config 路径**作为参数：
+建议 Node.js 22；打开 AIoT-IDE 的 Vela5 Watch Emulator。可直接安装上方已经签名的 RPK。
 
 ```bash
-# 进入 openvela 工作区根目录（你的仓的上一级）
-cd ..
-
-# 通用语法：第一个参数是 board config 路径，第二个参数可以是 menuconfig / distclean 等
-./build.sh <board-config-path> [menuconfig|distclean] [-j8]
+cd quickapp/velamotion_coach
+npm ci
+npm run test:core
+npm run test:motion
 ```
 
-> 具体的 board config 路径、目标产物、模拟器/真机部署方式请以你所在赛道的教程导航为准。本仓 `app/` `quickapp/` `board/` 三个示例骨架对应的 Kconfig 选项可通过 `menuconfig` 启用。
+使用项目带的 ADB 安装到当前 Vela5 模拟器：
 
----
-
-## 五、第四步：提交作品
-
-1. **fork** 你的专属仓 → 开发 → `git commit` 并推送 → 向专属仓发起 **Pull Request**，可**自行 review 并合入**（无需等组委会）。
-2. **AI Coding 日志**：与 AI 工具的对话会自动记录到本机 staging（不会自动上传），需你**主动导出/打包**选定会话到仓内 `logs/` 目录后一并提交。详见[《AI Coding 日志归集与提交手册》](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/ai_coding_log_guide.md)。
-3. 若需改动 **nuttx 等公共仓库**，不在本仓改，而是 fork 对应公共仓、以 PR 提交到 `dev-ai-contest-2026` 分支，由组委会 review 后合入。
-
-> ⏰ **提交作品截止：9 月 20 日**。截止后统一收回 push 权限，仍可查看 / clone。
->
-> 获奖后再按要求将作品 PR 至 openvela 上游对应仓库（走标准 PR + CI 流程）。
-
-### 关于 PR 与 CLA
-
-- 本仓所有改动通过 **Pull Request** 合入（分支保护强制，可自行合入自己的 PR）。
-- 首次贡献需在[**官网签署 CLA**](https://openvela.com/#/community/cla)；PR 上会自动跑 `cla/signature` 检查，在官网签署成功后，在 PR 评论 `/check-cla` 复检即可通过。
-
----
-
-## 六、提交前：把本 README 改成你的作品说明
-
-本文件目前是组委会给的**使用说明书**。**作品提交前，请把它替换成你自己作品的说明**，方便评委快速了解你做了什么、怎么跑起来。建议至少包含以下内容：
-
-```markdown
-# <你的作品名>
-
-## 一、作品简介
-<一句话/一段话说明这个作品是什么、解决什么问题、亮点在哪>
-
-## 二、选题方向
-<快应用 / 手表应用创新 ｜ AI 硬件产品创新 ｜ 新硬件适配 ｜ 自定方向，并简述理由>
-
-## 三、目录结构
-<列出你这个仓里各目录/文件的作用，例如：>
-- `app/xxx/`        — <说明>
-- `board/xxx/`      — <说明>
-- `quickapp/xxx/`   — <说明>
-- `logs/`           — AI Coding 日志
-- `docs/` 或其他    — <说明>
-
-## 四、运行方式
-<拉取工程后，如何编译、烧录/部署、运行的完整步骤；最好能让评委照着一步步复现>
-
-## 五、AI Coding 使用说明
-<说明本作品如何借助 AI 辅助开发：
-- 在需求拆解 / 方案设计 / 编码 / 调试 / 文档等环节如何与 AI 协作；
-- AI 对开发效率或质量带来的实际帮助。
-完整对话日志见 logs/ 目录>
+```bash
+ADB=./node_modules/@miwt/adb/bin/linux/adb
+"$ADB" devices
+"$ADB" -s emulator-5554 push dist/com.velamotion.coach.release.1.0.0.rpk /data/tmp/com.velamotion.coach.release.1.0.0.rpk
+"$ADB" -s emulator-5554 shell pm install /data/tmp/com.velamotion.coach.release.1.0.0.rpk
+"$ADB" -s emulator-5554 shell am start com.velamotion.coach
 ```
 
-> 提示：将会根据「作品本身 + 你的 README 说明 + `logs/` 里的 AI Coding 日志」来理解和评估你的作品，README 写清楚很重要。
+进入首页后点击开始，等待预热和动态识别，停止后查看时间线、历史。手机未连接或健康接口不可用时按页面说明使用模拟训练。对仅支持 ADB 推送的 arm64 镜像，按[官方手动开发文档](https://github.com/open-vela/docs/blob/dev-ai-contest-2026/zh-cn/contest_2026/quickapp/quickapp_manual.md)解包推送到 `/data/app/com.velamotion.coach/`，再在串口执行 `vapp hap://app/com.velamotion.coach`。
 
----
+自行重建 Release 前，在 AIoT-IDE 的发布流程生成自己的签名；作者私钥不分发。
 
-## 附：仓库命名规范
+```bash
+npm run release
+npm run demo:capture
+npm run submit:prepare
+npm run submit:check
+```
 
-`contest2026_<编号>_<队伍名>` — 编号三位零填充；队名 slug（全小写、英文/拼音、连字符）。例：`contest2026_289_DDLqudong`。
-（仓库由组委会统一创建，**每队仅一个仓**，无需自行命名。）
+完整 openvela 工程按[保留的官方仓说明](docs/official_repository_guide.md)执行 `repo init` 和 `repo sync`，基线为 `dev-ai-contest-2026`。队伍清单已添加本应用到 `packages/apps/contest2026_289_velamotion_coach` 的 linkfile。
+
+## 验证与边界
+
+2026-09-20：核心回归 **53/53**、运动场景测试、生产构建、设备 bundle 哈希核对、动态跑步确认、四页严格截图检查及提交包一致性全部通过。官方 gRPC 注入/回读 ACC、GYRO 和心率通过，步数由应用内 Mock 生成。
+
+当前使用轻量规则/特征分类器；未将研究工程 CNN-BiLSTM 原模型部署到手表。合成场景测试不代表真人识别准确率。官方 gRPC 注入和应用内 Mock 分类分别验证，不声称应用已消费全部官方六轴数据。本地预编译 SDK 镜像未追溯到大赛分支源码 commit。真机缺少 GYRO 时完整训练被阻断；真实功耗、振动触感、手机配对与真人性能尚未验证。
+
+## AI Coding 与可复用经验
+
+AI 协作用于采样边界修复、TRL 增量处理、生命周期和交互回归、模拟器部署与验收。[验收 Skill](skills/openvela-watch-acceptance/SKILL.md)沉淀设备 bundle 核对、动态画面双验证、传感器边界与提交包检查流程。
+
+**按作者要求，本次不公开历史开发日志及其摘要**，日志仅本地保留。官方 AI Coding 日志材料尚未提交；详见 [AI 协作与日志状态](quickapp/velamotion_coach/docs/ai_coding_disclosure.md)。构建和演示通过不代表该项官方要求已满足。
+
+## 目录与许可
+
+- `quickapp/velamotion_coach/`：参赛应用及完整材料。
+- `logs/README.md`：未提交日志的状态说明；`skills/`：复用验收流程。
+- `app/hello_app/`、`quickapp/hello_quickapp/`、`board/contest_board/`：保留官方示例骨架。
+- `contest2026_289_DDLqudong.xml`、`openvela.xml`：官方工程清单。
+
+作品源码遵循 [Apache-2.0](LICENSE)，第三方依赖保留各自许可证。签名私钥、原始数据和构建依赖不入仓。

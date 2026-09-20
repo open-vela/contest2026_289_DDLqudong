@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-09-20T04:18:46.486Z",
+  "ok": true,
+  "missing": [],
+  "aiCodingLogs": {
+    "included": false,
+    "reason": "withheld_by_author",
+    "officialRequirementMet": false
+  },
+  "competitionRequirementsComplete": false,
+  "packageScripts": {
+    "ok": true,
+    "targets": [
+      {
+        "name": "test:motion",
+        "command": "node --no-warnings scripts/smoke_motion_engine.mjs",
+        "target": "scripts/smoke_motion_engine.mjs",
+        "exists": true
+      },
+      {
+        "name": "test:core",
+        "command": "node --no-warnings scripts/test_core_modules.mjs",
+        "target": "scripts/test_core_modules.mjs",
+        "exists": true
+      },
+      {
+        "name": "mock:official",
+        "command": "node --no-warnings scripts/inject_official_sensor_mock.js",
+        "target": "scripts/inject_official_sensor_mock.js",
+        "exists": true
+      },
+      {
+        "name": "mock:official:dry",
+        "command": "MOCK_DRY_RUN=1 node --no-warnings scripts/inject_official_sensor_mock.js",
+        "target": "scripts/inject_official_sensor_mock.js",
+        "exists": true
+      },
+      {
+        "name": "demo:capture",
+        "command": "node --no-warnings scripts/final_demo_capture.js",
+        "target": "scripts/final_demo_capture.js",
+        "exists": true
+      },
+      {
+        "name": "demo:capture:fast",
+        "command": "DEMO_WAIT_SCALE=0.35 node --no-warnings scripts/final_demo_capture.js",
+        "target": "scripts/final_demo_capture.js",
+        "exists": true
+      },
+      {
+        "name": "model:inventory",
+        "command": "node --no-warnings scripts/model_migration_inventory.js",
+        "target": "scripts/model_migration_inventory.js",
+        "exists": true
+      },
+      {
+        "name": "submit:check",
+        "command": "node --no-warnings scripts/check_submission_ready.js",
+        "target": "scripts/check_submission_ready.js",
+        "exists": true
+      },
+      {
+        "name": "submit:prepare",
+        "command": "node --no-warnings scripts/prepare_submission_package.js",
+        "target": "scripts/prepare_submission_package.js",
+        "exists": true
+      }
+    ]
+  },
+  "productMode": {
+    "ok": true,
+    "autoStartDisabled": true,
+    "autoPageDisabled": true
+  },
+  "releaseRpk": {
+    "path": "dist/com.velamotion.coach.release.1.0.0.rpk",
+    "sizeBytes": 52719,
+    "structureOk": true,
+    "freshAgainstSource": true,
+    "entryCount": 11
+  },
+  "officialMock": {
+    "path": "artifacts/mock_verification/official_mock_report.json",
+    "ok": true,
+    "dryRun": false,
+    "verificationPassed": true
+  },
+  "screenshots": {
+    "count": 4,
+    "unique": 4,
+    "expected": 4,
+    "namesExact": true,
+    "pageMappingOk": true,
+    "ok": true,
+    "files": [
+      "core_01_home.png",
+      "core_02_coach.png",
+      "core_03_timeline.png",
+      "core_04_sync_review.png"
+    ],
+    "markerChecks": [
+      {
+        "name": "core_01_home.png",
+        "expectedIndex": 0,
+        "detectedIndex": 0,
+        "ok": true,
+        "detected": {
+          "index": 0,
+          "score": 1372,
+          "margin": 1032,
+          "count": 25
+        }
+      },
+      {
+        "name": "core_02_coach.png",
+        "expectedIndex": 1,
+        "detectedIndex": 1,
+        "ok": true,
+        "detected": {
+          "index": 1,
+          "score": 1721,
+          "margin": 856,
+          "count": 37
+        }
+      },
+      {
+        "name": "core_03_timeline.png",
+        "expectedIndex": 2,
+        "detectedIndex": 2,
+        "ok": true,
+        "detected": {
+          "index": 2,
+          "score": 2261,
+          "margin": 1831,
+          "count": 39
+        }
+      },
+      {
+        "name": "core_04_sync_review.png",
+        "expectedIndex": 3,
+        "detectedIndex": 3,
+        "ok": true,
+        "detected": {
+          "index": 3,
+          "score": 2144,
+          "margin": 2144,
+          "count": 36
+        }
+      }
+    ]
+  },
+  "submissionZip": {
+    "path": "artifacts/submission/velamotion_coach_submission.zip",
+    "ok": true,
+    "sizeBytes": 771747,
+    "entryCount": 94,
+    "forbiddenEntries": [],
+    "embeddedManifestHasZipPath": true,
+    "checkedFileCount": 66,
+    "contentMatchesCurrentInputs": true,
+    "mismatchedFiles": [],
+    "rootManifestReleaseHashMatches": true,
+    "embeddedManifestReleaseHashMatches": true
+  },
+  "note": "The current acceptance set is four core pages; preserved legacy 11-page artifacts are ignored. Dry-run Mock evidence, stale RPKs, mislabeled screenshots, stale ZIP manifests and private/heavy files fail this check."
+}

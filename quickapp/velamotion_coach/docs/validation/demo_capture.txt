@@ -1,0 +1,40 @@
+
+> velamotion-coach@1.0.0 demo:capture
+> node --no-warnings scripts/final_demo_capture.js
+
+[demo] redeploy release dist/com.velamotion.coach.release.1.0.0.rpk -> /data/tmp/com.velamotion.coach.release.1.0.0.rpk bundle=c1ba4d653469af05
+[demo] installed bundle verified sha256=c1ba4d653469af05
+[demo] launch via adb shell am start com.velamotion.coach
+[demo] app process com.velamotion.coach: running
+[demo] launch via adb shell am start com.velamotion.coach
+[demo] tap start workout at 216,356 via emulator gRPC mouse
+[demo] workout state confirmed expected=running marker=stopped actionChanged=true
+[demo] workout start acknowledged; deterministic wait 65000ms
+[demo] workout foreground probe 2 page=01 score=1924 margin=1924 mean=220.6 std=70.8 chroma=7.7 bytes=25987 size=403x480
+[demo] workout dynamic status activity=无活动 confidence=96% elapsed=0:03
+[demo] workout foreground probe 4 page=01 score=1372 margin=1032 mean=219.5 std=70.7 chroma=8.2 bytes=33588 size=403x480
+[demo] workout dynamic status activity=无活动 confidence=95% elapsed=0:05
+[demo] workout foreground probe 6 page=01 score=1372 margin=1032 mean=219.5 std=70.7 chroma=8.2 bytes=33588 size=403x480
+[demo] workout dynamic status activity=无活动 confidence=41% elapsed=0:07
+[demo] workout foreground probe 8 page=01 score=1372 margin=1032 mean=219.9 std=70.6 chroma=8.4 bytes=32179 size=403x480
+[demo] workout dynamic status activity=无活动 confidence=28% elapsed=0:10
+[demo] workout foreground probe 10 page=01 score=1372 margin=1032 mean=219.6 std=70.8 chroma=9.2 bytes=31703 size=403x480
+[demo] workout dynamic status activity=无活动 confidence=14% elapsed=0:13
+[demo] workout foreground probe 12 page=01 score=1372 margin=1032 mean=219.4 std=70.9 chroma=9.1 bytes=31521 size=403x480
+[demo] workout dynamic status activity=跑步 confidence=82% elapsed=0:19
+[demo] workout recognition log confirmed expected=跑步
+[demo] workout recognition visual confirmed runningPixels=495
+[demo] collected /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/core_01_home.png 872154f25d56c1acc515c11c58b5239b page=01 score=1372 margin=1032 run=unknown edgeBlack=0.000 mean=219.5 std=70.9 chroma=9.2 bytes=30590 size=403x480
+[demo] tap stop workout at 216,356 via emulator gRPC mouse
+[demo] workout state confirmed expected=stopped marker=unknown actionChanged=true
+[demo] tap next page via emulator gRPC mouse
+[demo] expected page 2 not reached; last=page=01 score=1372 margin=1032
+[demo] navigation recovery target=2 click=1 observed=page=01 score=1372 margin=1032
+[demo] tap next page via emulator gRPC mouse
+[demo] collected /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/core_02_coach.png 9c4e4f2c74ce2eb1e1fa672e701237b7 page=02 score=1721 margin=856 run=unknown edgeBlack=0.000 mean=225.4 std=67.6 chroma=5.2 bytes=29042 size=403x480
+[demo] collected /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/core_03_timeline.png 2b6ff531c421007b96e2db2af90ed4e2 page=03 score=2261 margin=1831 run=unknown edgeBlack=0.000 mean=228.6 std=67.1 chroma=2.9 bytes=17260 size=403x480
+[demo] tap next page via emulator gRPC mouse
+[demo] collected /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/core_04_sync_review.png 04d8c925a3e69e98c0fb25823ac0c912 page=04 score=2144 margin=2144 run=unknown edgeBlack=0.000 mean=217.9 std=75.8 chroma=5.0 bytes=26064 size=403x480
+[demo] deterministic capture summary: collected=4/4
+[demo] video /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/velamotion_core_demo.mp4
+[demo] storyboard /home/kmh/桌面/KMH/运动识别项目/运动识别小米openvela竞赛/openvela_velamotion_coach/artifacts/final_demo/auto_carousel/core_demo_storyboard.md

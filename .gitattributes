@@ -1,0 +1,8 @@
+*.pdf binary
+*.docx binary
+*.rpk binary
+*.mp4 binary
+*.png binary
+*.zip binary
+*.jsonl -diff
+quickapp/velamotion_coach/docs/validation/* -whitespace
