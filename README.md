@@ -1,5 +1,7 @@
 # VelaMotion Coach / 腕动教练
 
+> **1.1.0 六轴接入更新（验收中）**：新增原生 Feature 补丁和六轴 JS 采样。原生数据已进入快应用；当前预编译模拟器持续训练仍出现底层采样缺口，固件编译及黄山派实测尚未完成。参见[接入与验证说明](quickapp/velamotion_coach/docs/six_axis_integration.md)。下方原有介绍 PDF/Word、视频、四页截图和旧验收记录对应 1.0.0，不作为 1.1.0 原生六轴已通过验收的证据。
+
 **2026 首届 openvela AI 硬件开发者大赛 · 手表应用创新方向**
 
 队伍：**DDLqudong（289）** · GitHub：rudykon · 版本：1.0.0
@@ -10,7 +12,7 @@
 
 - [作品介绍 PDF](quickapp/velamotion_coach/docs/作品介绍.pdf) / [Word](quickapp/velamotion_coach/docs/作品介绍.docx)
 - [演示 MP4](quickapp/velamotion_coach/artifacts/final_demo/auto_carousel/velamotion_core_demo.mp4)：四张本轮模拟器实测截图串联，每页 10 秒，非连续录屏。
-- [生产 Release RPK](quickapp/velamotion_coach/dist/com.velamotion.coach.release.1.0.0.rpk)
+- [生产 Release RPK](quickapp/velamotion_coach/dist/com.velamotion.coach.release.1.1.0.rpk)
 - [源码与详细运行指南](quickapp/velamotion_coach/README.md)
 - [完整交付 ZIP](quickapp/velamotion_coach/artifacts/submission/velamotion_coach_submission.zip)
 - [本轮验收](quickapp/velamotion_coach/docs/submission_validation_2026-09-20.md) / [提交包检查](quickapp/velamotion_coach/artifacts/submission/submission_check_report.json) / [官方要求对应](quickapp/velamotion_coach/docs/contest_requirements.md)
@@ -44,8 +46,8 @@ npm run test:motion
 ```bash
 ADB=./node_modules/@miwt/adb/bin/linux/adb
 "$ADB" devices
-"$ADB" -s emulator-5554 push dist/com.velamotion.coach.release.1.0.0.rpk /data/tmp/com.velamotion.coach.release.1.0.0.rpk
-"$ADB" -s emulator-5554 shell pm install /data/tmp/com.velamotion.coach.release.1.0.0.rpk
+"$ADB" -s emulator-5554 push dist/com.velamotion.coach.release.1.1.0.rpk /data/tmp/com.velamotion.coach.release.1.1.0.rpk
+"$ADB" -s emulator-5554 shell pm install /data/tmp/com.velamotion.coach.release.1.1.0.rpk
 "$ADB" -s emulator-5554 shell am start com.velamotion.coach
 ```
 

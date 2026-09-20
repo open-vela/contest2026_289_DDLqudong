@@ -1,3 +1,4 @@
+import { SixAxisSensorProvider } from '../sensor/six_axis_provider.js';
 import { getRecentHealth, ALL_HEALTH_TYPES } from '../sensor/health_provider.js';
 import { vibrate } from './vibration_provider.js';
 
@@ -145,11 +146,35 @@ function probeVibration() {
   return ok ? warn('腕上振动', '已请求 short；是否有触感必须在真机人工确认') : warn('腕上振动', '接口不可用或模拟器无触感');
 }
 
+function probeSixAxis() {
+  const provider = new SixAxisSensorProvider();
+  const caps = provider.getCapabilities();
+  if (!caps.fullActivityRecognition) {
+    return probeAccelerometer().then((acc) => [acc, warn('真实 GYRO', '需编译并部署原生六轴扩展')]);
+  }
+  return new Promise((resolve) => {
+    let finished = false;
+    const done = (rows) => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      provider.stop();
+      resolve(rows);
+    };
+    const timer = setTimeout(() => done([fail('真实 ACC', '六轴数据超时'), fail('真实 GYRO', '六轴数据超时')]), 3500);
+    provider.start((batch) => {
+      if (!batch.length) return;
+      done([pass('真实 ACC', '已收到浮点三轴数据'), pass('真实 GYRO', '已收到原生角速度与时间戳')]);
+    }, { onStatus: (status) => {
+      if (status.error) done([fail('真实 ACC', status.error), fail('真实 GYRO', status.error)]);
+    } });
+  });
+}
+
 export function runDeviceDiagnostics(callback) {
-  const rows = [warn('真实 GYRO', '当前公开 JS sensor 类型未提供 gyroscope 订阅；需真机 SDK 或原生适配层')];
-  Promise.all([getDeviceInfo(), getBatteryInfo(), probeHealth(), probeAccelerometer(), probeStepCounter()])
+  Promise.all([getDeviceInfo(), getBatteryInfo(), probeHealth(), probeSixAxis(), probeStepCounter()])
     .then((list) => {
-      const out = list.concat([probeVibration()]).concat(rows);
+      const out = [].concat(...list).concat([probeVibration()]);
       callback && callback(out);
     })
     .catch((e) => callback && callback([fail('真机诊断', e && e.message ? e.message : String(e))]));
