@@ -33,6 +33,7 @@ const required = [
   'native/upstream.json',
   'native/apply_sensor_patch.py',
   'native/README.md',
+  'native/.gitattributes',
   'scripts/emulator_uorb_bridge.py',
   'scripts/test_emulator_uorb_bridge.py',
   'docs/six_axis_integration.md',
