@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T12:39:54.973Z",
+  "generatedAt": "2026-09-20T12:44:29.157Z",
   "ok": true,
   "missing": [],
   "aiCodingLogs": {
@@ -212,11 +212,11 @@
   "submissionZip": {
     "path": "artifacts/submission/velamotion_coach_submission.zip",
     "ok": true,
-    "sizeBytes": 819220,
-    "entryCount": 109,
+    "sizeBytes": 819565,
+    "entryCount": 110,
     "forbiddenEntries": [],
     "embeddedManifestHasZipPath": true,
-    "checkedFileCount": 78,
+    "checkedFileCount": 79,
     "contentMatchesCurrentInputs": true,
     "mismatchedFiles": [],
     "rootManifestReleaseHashMatches": true,

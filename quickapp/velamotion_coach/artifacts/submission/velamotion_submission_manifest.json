@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T12:39:54.148Z",
+  "generatedAt": "2026-09-20T12:44:28.257Z",
   "packageName": "com.velamotion.coach",
   "aiCodingLogs": {
     "included": false,
@@ -26,7 +26,7 @@
     "core_03_timeline.png",
     "core_04_sync_review.png"
   ],
-  "copiedCount": 81,
+  "copiedCount": 82,
   "copied": [
     "README.md",
     "LICENSE",
@@ -79,6 +79,7 @@
     "docs/作品介绍.docx",
     "docs/作品介绍.pdf",
     "skills/openvela-watch-acceptance/SKILL.md",
+    "native/.gitattributes",
     "native/README.md",
     "native/apply_sensor_patch.py",
     "native/sensor-six-axis.patch",
@@ -122,7 +123,7 @@
   ],
   "boundary": "No physical Xiaomi watch/band was available on this server; true-device validation is implemented as an in-app diagnostic workflow and documentation.",
   "zip": {
-    "sizeBytes": 819220,
-    "sha256": "0ac912cdc9e44ec5912bf2229c4c9f84bd675c124db525a42740c1e957492966"
+    "sizeBytes": 819565,
+    "sha256": "09b8b2eba00d6e38957ea703ef7f10400aaea28c838b343f2c62ab6cef731bba"
   }
 }

@@ -23,7 +23,7 @@ for name, expected in metadata['files'].items():
     path = feature / name
     if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
         parser.error(f'{name} differs from the reviewed upstream baseline; review/rebase the patch instead of overwriting it')
-subprocess.run(['git', 'apply', '--check', str(patch)], cwd=feature, check=True)
+subprocess.run(['git', 'apply', '--check', '--whitespace=error', str(patch)], cwd=feature, check=True)
 if args.check:
     print('Patch and upstream hashes verified; no files changed.')
 else:
