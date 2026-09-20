@@ -1,0 +1,173 @@
+{
+  "dryRun": false,
+  "sceneId": "fatigue_running",
+  "sceneName": "疲劳跑步",
+  "durationMs": 7000,
+  "intervalMs": 200,
+  "frameCount": 33,
+  "injectedTargets": [
+    "ACCELERATION",
+    "GYROSCOPE",
+    "HEART_RATE",
+    "PHYSICAL_HEART_RATE"
+  ],
+  "unsupportedTargets": [
+    "STEP_COUNT_OFFICIAL_ENUM_NOT_FOUND_IN_EMULATOR_PROTO"
+  ],
+  "stepMock": {
+    "sensorTarget": null,
+    "physicalTarget": null,
+    "sensorTypes": [
+      "ACCELERATION",
+      "GYROSCOPE",
+      "MAGNETIC_FIELD",
+      "ORIENTATION",
+      "TEMPERATURE",
+      "PROXIMITY",
+      "LIGHT",
+      "PRESSURE",
+      "HUMIDITY",
+      "MAGNETIC_FIELD_UNCALIBRATED",
+      "GYROSCOPE_UNCALIBRATED",
+      "HEART_RATE",
+      "RGBC_LIGHT",
+      "ACCELERATION_UNCALIBRATED"
+    ],
+    "physicalTypes": [
+      "POSITION",
+      "ROTATION",
+      "MAGNETIC_FIELD",
+      "TEMPERATURE",
+      "PROXIMITY",
+      "LIGHT",
+      "PRESSURE",
+      "HUMIDITY",
+      "VELOCITY",
+      "AMBIENT_MOTION",
+      "HINGE_ANGLE0",
+      "HINGE_ANGLE1",
+      "HINGE_ANGLE2",
+      "ROLLABLE0",
+      "ROLLABLE1",
+      "ROLLABLE2",
+      "POSTURE",
+      "HEART_RATE",
+      "RGBC_LIGHT",
+      "WRIST_TILT"
+    ]
+  },
+  "lastFrame": {
+    "accX": -0.40498185894921945,
+    "accY": 0.4355956011407608,
+    "accZ": 6.653557320072991,
+    "gyroX": 0.2227304132103414,
+    "gyroY": -0.4765352750279866,
+    "gyroZ": 0.018588207243545124,
+    "heartRate": 104.81503909559558,
+    "spo2": 96.82741229953062,
+    "stress": 31.836276033809852,
+    "stepCount": 5,
+    "mockLabel": "正常跑",
+    "mockMode": "running",
+    "sceneName": "疲劳跑步"
+  },
+  "finalVerificationMethod": "interleaved_set_get",
+  "readback": {
+    "acc": {
+      "target": "ACCELERATION",
+      "status": "OK",
+      "value": {
+        "data": [
+          -0.4049818515777588,
+          0.4355956017971039,
+          6.653557300567627
+        ]
+      }
+    },
+    "gyro": {
+      "target": "GYROSCOPE",
+      "status": "OK",
+      "value": {
+        "data": [
+          0.22273041307926178,
+          -0.47653526067733765,
+          0.01858820766210556
+        ]
+      }
+    },
+    "sensorHr": {
+      "target": "HEART_RATE",
+      "status": "OK",
+      "value": {
+        "data": [
+          104.8150405883789
+        ]
+      }
+    },
+    "physicalHr": {
+      "target": "HEART_RATE",
+      "status": "OK",
+      "value": {
+        "data": [
+          104.8150405883789
+        ]
+      }
+    },
+    "step": null,
+    "physicalStep": null
+  },
+  "verification": {
+    "passed": true,
+    "checks": {
+      "acceleration": {
+        "ok": true,
+        "actual": [
+          -0.4049818515777588,
+          0.4355956017971039,
+          6.653557300567627
+        ],
+        "expected": [
+          -0.40498185894921945,
+          0.4355956011407608,
+          6.653557320072991
+        ],
+        "maxAbsError": 1.9505364434735384e-8
+      },
+      "gyroscope": {
+        "ok": true,
+        "actual": [
+          0.22273041307926178,
+          -0.47653526067733765,
+          0.01858820766210556
+        ],
+        "expected": [
+          0.2227304132103414,
+          -0.4765352750279866,
+          0.018588207243545124
+        ],
+        "maxAbsError": 1.4350648946948041e-8
+      },
+      "sensorHeartRate": {
+        "ok": true,
+        "actual": [
+          104.8150405883789
+        ],
+        "expected": [
+          104.81503909559558
+        ],
+        "maxAbsError": 0.0000014927833262845525
+      },
+      "physicalHeartRate": {
+        "ok": true,
+        "actual": [
+          104.8150405883789
+        ],
+        "expected": [
+          104.81503909559558
+        ],
+        "maxAbsError": 0.0000014927833262845525
+      }
+    }
+  },
+  "generatedAt": "2026-09-20T04:02:13.117Z"
+}
